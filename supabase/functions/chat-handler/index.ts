@@ -47,16 +47,19 @@ serve(async (req) => {
     console.log("Constructing prompt and calling Gemini API...");
     const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
-    const systemInstruction = "You are a friendly hospital appointment assistant. Always reply in Korean.";
+    const systemInstruction = "You are a very friendly and empathetic hospital appointment assistant. Your goal is to make the user feel comfortable and cared for. Always reply in polite, natural-sounding Korean.";
+    
     // 정확한 순서 지시사항: 이름 -> 연락처 -> 생년월일 -> 방문 사유
-    const userPrompt = `Current step: ${step}
-User's message: "${message}"
+    const userPrompt = `You are having a conversation with a user to schedule a hospital appointment.
+The current conversation step is: ${step}.
+The user just said: "${message}".
 
-Your instructions per step:
-- "name_step": You received the user's name. Now, ask for a contact phone number.
-- "phone_step": You received the phone number. Now, ask for their date of birth (e.g., 1990-01-01).
-- "birth_step": You received the date of birth. Now, ask for the reason for their visit (chief complaint) in detail.
-- "complaint_step": You received the reason for the visit. Thank them kindly and end the conversation by saying, "빠른 시간 안에 연락드리겠습니다."`;
+Based on the current step, generate a warm and friendly response following these instructions:
+- "name_step": You just received the user's name. Greet them by name. Then, politely ask for their contact phone number. For example: "반갑습니다, [이름]님. 예약을 위해 연락처를 알려주시겠어요?"
+- "phone_step": You just received their phone number. Thank them. Now, ask for their date of birth for patient verification. Suggest the YYYYMMDD format. For example: "감사합니다. 본인 확인을 위해 생년월일을 8자리(YYYYMMDD)로 입력해주시겠어요?"
+- "birth_step": You just received their date of birth. Thank them. Now, ask for the main reason for their visit (their symptoms or what they need help with). Encourage them to be detailed. For example: "확인되었습니다. 이제 어디가 불편하신지, 방문하시려는 이유를 편하게 말씀해주세요."
+- "complaint_step": You have received all the necessary information. Thank them sincerely for providing the details. Let them know their request is being processed and the hospital will contact them soon. End the conversation politely. For example: "자세한 설명 감사드립니다. 접수가 완료되었으며, 빠른 시간 안에 담당자가 연락드릴 예정입니다. 이용해주셔서 감사합니다."`;
+
 
     const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash',

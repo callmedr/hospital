@@ -1,2 +1,1 @@
-
-export const INITIAL_BOT_MESSAGE = '안녕하세요! 병원 예약 도우미 챗봇입니다. 환자분의 성함을 알려주시겠어요?';
+export const INITIAL_BOT_MESSAGE = '안녕하세요! 고객님의 편안한 진료 예약을 돕는 챗봇입니다. 먼저, 진료받으실 분의 성함을 알려주시겠어요?';
