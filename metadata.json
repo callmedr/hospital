@@ -1,0 +1,6 @@
+{
+  "name": "Hospital Chatbot",
+  "description": "A web application for a hospital reservation chatbot using React, Supabase, and Gemini API for a seamless user experience.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
